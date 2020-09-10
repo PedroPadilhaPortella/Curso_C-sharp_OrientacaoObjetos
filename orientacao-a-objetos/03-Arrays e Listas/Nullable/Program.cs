@@ -27,8 +27,8 @@ namespace Nullable
             else
                 System.Console.WriteLine("Y is Null");
 
-            double? valor1 = null;
-            double? valor2 = 10;
+            // double? valor1 = null;
+            // double? valor2 = 10;
 
             double a = x ?? 5;
             double b = y ?? 7;
