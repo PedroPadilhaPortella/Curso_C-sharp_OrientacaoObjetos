@@ -1,4 +1,4 @@
-namespace OrderEnum.Entities.Enums
+namespace Pedidos.Entities.Enums
 {
     enum OrderStatus : int
     {
@@ -7,5 +7,4 @@ namespace OrderEnum.Entities.Enums
         Shipped = 2,
         Delivered = 3
     }
-
 }
