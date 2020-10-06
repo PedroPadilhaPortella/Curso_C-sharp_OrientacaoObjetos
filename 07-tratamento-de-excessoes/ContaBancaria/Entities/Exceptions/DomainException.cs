@@ -1,8 +1,8 @@
 using System;
 
-namespace Hotel.Entities.Exceptions
+namespace ContaBancaria.Entities.Exceptions
 {
-    class DomainException : ApplicationException
+    class DomainException : Exception
     {
         public DomainException(string message) : base(message) {}
     }
