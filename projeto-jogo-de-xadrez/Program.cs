@@ -9,12 +9,23 @@ namespace projeto_jogo_de_xadrez
         static void Main(string[] args)
         {
             try{
-            Tabuleiro tabuleiro = new Tabuleiro(8, 8);
-            tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Verde) , new Posicao(0, 0));
-            tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Verde) , new Posicao(1, 3));
-            tabuleiro.ColocarPeca(new Rei(tabuleiro, Cor.Amarelo) , new Posicao(3, 5));
-            tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Amarelo) , new Posicao(6, 6));
-            Tela.ImprimirTabuleiro(tabuleiro);
+            PartidaDeXadrez partida = new PartidaDeXadrez();
+            while (!partida.Terminada)
+            {
+                Console.Clear();
+                Tela.ImprimirTabuleiro(partida.Table);
+                Console.Write("\nOrigem: ");
+                Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+
+                bool[,] posicoesPossiveis = partida.Table.Peca(origem).MovimentosPossiveis();
+
+                Console.Clear();
+                Tela.ImprimirTabuleiro(partida.Table, posicoesPossiveis);
+                Console.Write("\nDestino: ");
+                Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+                
+                partida.ExecutarMovimento(origem, destino);
+            }
             }catch(TabuleiroException err)
             {
                 System.Console.WriteLine(err.Message);

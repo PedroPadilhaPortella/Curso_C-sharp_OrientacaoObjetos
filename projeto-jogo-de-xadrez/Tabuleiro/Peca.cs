@@ -1,6 +1,6 @@
 namespace tabuleiro
 {
-    class Peca
+    abstract class Peca
     {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
@@ -13,5 +13,10 @@ namespace tabuleiro
             this.Cor = cor;
             this.QuantidadeMovimentos = 0;
         }
+        public void IncrementarQuantidadeMovimentos()
+        {
+            QuantidadeMovimentos++;
+        }
+        public abstract bool[,] MovimentosPossiveis();
     }
 }
