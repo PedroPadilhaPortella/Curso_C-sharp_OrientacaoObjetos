@@ -19,7 +19,7 @@ namespace projeto_jogo_de_xadrez
             }
             Console.WriteLine("  a b c d e f g h");
         }
-                public static void ImprimirTabuleiro(Tabuleiro tab, bool[,] posicoesPossiveis)
+        public static void ImprimirTabuleiro(Tabuleiro tab, bool[,] posicoesPossiveis)
         {
             ConsoleColor fundoOriginal = Console.BackgroundColor;
             ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
@@ -52,29 +52,12 @@ namespace projeto_jogo_de_xadrez
             if(peca == null){
                 Console.Write("- ");
             }else{
-                if (peca.Cor == Cor.Branco){
-                    Console.Write(peca);
-                }else if(peca.Cor == Cor.Preto){
-                    ConsoleColor aux = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write(peca);
-                    Console.ForegroundColor = aux;
-                }else if(peca.Cor == Cor.Azul){
-                    ConsoleColor aux = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write(peca);
-                    Console.ForegroundColor = aux;
-                }else if(peca.Cor == Cor.Vermelho){
-                    ConsoleColor aux = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write(peca);
-                    Console.ForegroundColor = aux;
-                }else if(peca.Cor == Cor.Verde){
+                if(peca.Cor == Cor.Verde){
                     ConsoleColor aux = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write(peca);
                     Console.ForegroundColor = aux;
-                }else if(peca.Cor == Cor.Amarelo){
+                }else{
                     ConsoleColor aux = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write(peca);
