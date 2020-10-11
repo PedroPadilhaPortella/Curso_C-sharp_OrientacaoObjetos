@@ -27,6 +27,7 @@ namespace projeto_jogo_de_xadrez
                     Tela.ImprimirTabuleiro(partida.Table, posicoesPossiveis);
                     Console.Write("\nDestino: ");
                     Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+                    partida.ValidarPosicaoDeDestino(origem, destino);
                 
                     partida.RealizarJogada(origem, destino);
                 }catch(TabuleiroException err){
