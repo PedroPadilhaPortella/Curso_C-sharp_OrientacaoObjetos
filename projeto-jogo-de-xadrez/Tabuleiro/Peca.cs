@@ -18,6 +18,10 @@ namespace tabuleiro
         {
             QuantidadeMovimentos++;
         }
+        public void DecrementarQuantidadeMovimentos()
+        {
+            QuantidadeMovimentos--;
+        }
         public bool ExistemMovimentosPossiveis()
         {
             bool[,] matriz = MovimentosPossiveis();

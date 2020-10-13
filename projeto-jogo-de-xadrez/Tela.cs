@@ -14,6 +14,9 @@ namespace projeto_jogo_de_xadrez
             ImprimirPecasCapturadas(partida);
             Console.Write($"\nTurno: " + partida.Turno);
             Console.Write($"\nAguardando jogada: " + partida.JogadorAtual);
+            if(partida.Xeque){
+                Console.WriteLine("XEQUE!");
+            }
         }
         public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
         {
