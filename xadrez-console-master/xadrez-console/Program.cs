@@ -10,7 +10,6 @@ namespace xadrez_console {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
 
                 while (!partida.Terminada) {
-
                     try {
                         Console.Clear();
                         Tela.ImprimirPartida(partida);
@@ -31,8 +30,7 @@ namespace xadrez_console {
                         partida.ValidarPosicaoDeDestino(origem, destino);
 
                         partida.RealizarJogada(origem, destino);
-                    }
-                    catch (TabuleiroException error) {
+                    }catch (TabuleiroException error) {
                         Console.WriteLine(error.Message);
                         Console.ReadLine();
                     }

@@ -114,14 +114,11 @@ namespace xadrez {
 
         public void RealizarJogada(Posicao origem, Posicao destino) {
             Peca pecaCapturada = ExecutarMovimento(origem, destino);
-
             if (EstaEmXeque(JogadorAtual)) {
                 DesfazerMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
-
             Peca peca = Table.Peca(destino);
-
             // #jogadaespecial promocao
             if (peca is Peao) {
                 if ((peca.Cor == Cor.Branca && destino.Linha == 0) || (peca.Cor == Cor.Preta && destino.Linha == 7)) {
@@ -132,14 +129,12 @@ namespace xadrez {
                     Pecas.Add(dama);
                 }
             }
-
             if (EstaEmXeque(Adversaria(JogadorAtual))) {
                 Xeque = true;
             }
             else {
                 Xeque = false;
             }
-
             if (TesteXequemate(Adversaria(JogadorAtual))) {
                 Terminada = true;
             }
@@ -147,7 +142,6 @@ namespace xadrez {
                 Turno++;
                 MudarJogador();
             }
-
             // #jogadaespecial en passant
             if (peca is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2)) {
                 VulneravelEnPassant = peca;
@@ -155,7 +149,6 @@ namespace xadrez {
             else {
                 VulneravelEnPassant = null;
             }
-
         }
 
         public void ValidarPosicaoDeOrigem(Posicao posicao) {
