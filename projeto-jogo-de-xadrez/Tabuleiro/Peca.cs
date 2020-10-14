@@ -1,43 +1,42 @@
-namespace tabuleiro
-{
-    abstract class Peca
-    {
+namespace tabuleiro {
+    abstract class Peca {
+
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
-        public int QuantidadeMovimentos { get; protected set; }
-        public Tabuleiro Tab { get; protected set; }
-
-        public Peca(Tabuleiro tab, Cor cor)
-        {
+        public int QuantidadeDeMovimentos { get; protected set; }
+        public Tabuleiro Table { get; protected set; }
+         
+        public Peca(Tabuleiro table, Cor cor) {
             this.Posicao = null;
-            this.Tab = tab;
+            this.Table = table;
             this.Cor = cor;
-            this.QuantidadeMovimentos = 0;
+            this.QuantidadeDeMovimentos = 0;
         }
-        public void IncrementarQuantidadeMovimentos()
-        {
-            QuantidadeMovimentos++;
+
+        public void IncrementarQuantidadeDeMovimentos() {
+            QuantidadeDeMovimentos++;
         }
-        public void DecrementarQuantidadeMovimentos()
-        {
-            QuantidadeMovimentos--;
+
+        public void DecrementarQuantidadeDeMovimentos() {
+            QuantidadeDeMovimentos--;
         }
-        public bool ExistemMovimentosPossiveis()
-        {
-            bool[,] matriz = MovimentosPossiveis();
-            for (int i = 0; i < Tab.Linhas; i++){
-                for (int j = 0; j < Tab.Colunas; j++){
-                    if(matriz[i,j] == true){
+
+        public bool ExisteMovimentosPossiveis() {
+            bool[,] mat = MovimentosPossiveis();
+            for (int i=0; i<Table.Linhas; i++) {
+                for (int j=0; j<Table.Colunas; j++) {
+                    if (mat[i, j]) {
                         return true;
                     }
                 }
             }
             return false;
         }
-        public bool PodeMoverPara(Posicao posicao)
-        {
+
+        public bool MovimentoPossivel(Posicao posicao) {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }
+
         public abstract bool[,] MovimentosPossiveis();
     }
 }

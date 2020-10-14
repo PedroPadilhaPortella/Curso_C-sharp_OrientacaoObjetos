@@ -1,43 +1,48 @@
 ﻿using System;
 using tabuleiro;
-using Xadrez;
+using xadrez;
 
-namespace projeto_jogo_de_xadrez
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try{
-            PartidaDeXadrez partida = new PartidaDeXadrez();
-            while (!partida.Terminada)
-            {
-                try{
-                    Console.Clear();
-                    Tela.ImprimirPartida(partida);
+namespace xadrez_console {
+    class Program {
+        static void Main(string[] args) {
 
-                    Console.Write("\n\nOrigem: ");
-                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
-                    partida.ValidarPosicaoDeOrigem(origem);
+            try {
+                PartidaDeXadrez partida = new PartidaDeXadrez();
 
-                    bool[,] posicoesPossiveis = partida.Table.Peca(origem).MovimentosPossiveis();
+                while (!partida.Terminada) {
+                    try {
+                        Console.Clear();
+                        Tela.ImprimirPartida(partida);
 
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(partida.Table, posicoesPossiveis);
-                    Console.Write("\nDestino: ");
-                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
-                    partida.ValidarPosicaoDeDestino(origem, destino);
-                
-                    partida.RealizarJogada(origem, destino);
-                }catch(TabuleiroException err){
-                Console.WriteLine(err.Message);
-                Console.ReadLine();
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                        partida.ValidarPosicaoDeOrigem(origem);
+
+                        bool[,] posicoesPossiveis = partida.Table.Peca(origem).MovimentosPossiveis();
+
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(partida.Table, posicoesPossiveis);
+
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
+                        partida.ValidarPosicaoDeDestino(origem, destino);
+
+                        partida.RealizarJogada(origem, destino);
+                    }catch (TabuleiroException error) {
+                        Console.WriteLine(error.Message);
+                        Console.ReadLine();
+                    }
                 }
+                Console.Clear();
+                Tela.ImprimirPartida(partida);
             }
-            }catch(TabuleiroException err)
-            {
-                Console.WriteLine(err.Message);
+            catch (TabuleiroException error) {
+                Console.WriteLine(error.Message);
             }
+
+            Console.ReadLine();
         }
     }
 }
