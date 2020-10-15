@@ -23,8 +23,8 @@ namespace tabuleiro {
 
         public bool ExisteMovimentosPossiveis() {
             bool[,] mat = MovimentosPossiveis();
-            for (int i=0; i<Table.Linhas; i++) {
-                for (int j=0; j<Table.Colunas; j++) {
+            for (int i = 0; i < Table.Linhas; i++) {
+                for (int j = 0; j < Table.Colunas; j++) {
                     if (mat[i, j]) {
                         return true;
                     }

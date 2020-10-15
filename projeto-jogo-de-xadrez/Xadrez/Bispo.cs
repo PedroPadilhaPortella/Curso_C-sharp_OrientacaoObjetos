@@ -19,7 +19,7 @@ namespace xadrez {
             // NO
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
             while (Table.PosicaoValida(pos) && PodeMover(pos)) {
-                mat[Posicao.Linha, Posicao.Coluna] = true;
+                mat[pos.Linha, pos.Coluna] = true;
                 if (Table.Peca(pos) != null && Table.Peca(pos).Cor != Cor) {
                     break;
                 }
