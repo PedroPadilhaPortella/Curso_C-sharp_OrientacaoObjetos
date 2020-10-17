@@ -1,5 +1,3 @@
-using Location.Entities;
-
 namespace Location.Services
 {
     class BrazilTaxService
