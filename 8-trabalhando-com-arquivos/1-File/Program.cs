@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace _1_File_FileInfo
+namespace _1_File
 {
     class Program
     {
