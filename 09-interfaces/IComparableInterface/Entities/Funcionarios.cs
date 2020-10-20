@@ -7,14 +7,6 @@ namespace IComparableInterface.Entities
     {
         public string Name { get; set; }
         public double Salary { get; set; }
-        public int CompareTo(object obj)
-        {
-            if(!(obj is Employee)){
-                throw new ArgumentException("Comparing Error: Argument is not a Employee.");
-            }
-            Employee other = obj as Employee;
-            return Name.CompareTo(other.Name);
-        }
         public Employee(string csvEmployee)
         {
             string[] attributes = csvEmployee.Split(',');
@@ -24,6 +16,14 @@ namespace IComparableInterface.Entities
         public override string ToString()
         {
             return $"Name: {Name}, Salary: ${Salary.ToString("F2", CultureInfo.InvariantCulture)}";
+        }
+        public int CompareTo(object obj)
+        {
+            if(!(obj is Employee)){
+                throw new ArgumentException("Comparing Error: Argument is not a Employee.");
+            }
+            Employee other = obj as Employee;
+            return Name.CompareTo(other.Name);
         }
     }
 }
