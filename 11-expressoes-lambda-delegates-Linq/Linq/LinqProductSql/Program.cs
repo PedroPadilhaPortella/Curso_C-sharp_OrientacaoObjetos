@@ -37,7 +37,7 @@ namespace LinqProductSql
 
             // var r1 = products.Where(p => p.Category.Tier == 1 && p.Price < 900.0);
             var r1 = from p in products
-                where p.Category.Tier == 1 && p.Price < 900
+                where p.Category.Tier == 1 && p.Price < 900.0
                 select p;
             Print("TIER 1 AND PRICE < 900:", r1);
             
@@ -47,17 +47,17 @@ namespace LinqProductSql
                 select p.Name;
             Print("NAMES OF PRODUCTS FROM TOOLS:", r2);
             
-            // var r3 = products.Where(p =>p.Name[0] == 'C').Select(p => new{p.Name, p.Price, CatName = p.Category.Name});
+            //var r3 = products.Where(p =>p.Name[0] == 'C').Select(p => new{p.Name, p.Price, Category = p.Category.Name});
             var r3 = from p in products
-                    where p.Name[0] == 'C'
-                    select new {p.Name, p.Price, CatName = p.Category.Name};
+                where p.Name[0] == 'C'
+                select new {p.Name, p.Price, Category = p.Category.Name};
             Print("NAMES START WITH C AND ANONYMOUS OBJECT:", r3);
 
             // var r4 = products.Where(p => p.Category.Tier == 1).OrderBy(p => p.Price).ThenBy(p => p.Name);
             var r4 = from p in products
-                    where p.Category.Tier == 1
-                    orderby p.Name orderby p.Price
-                    select p;
+                where p.Category.Tier == 1
+                orderby p.Name orderby p.Price
+                select p;  
             Print("TIER 1 ORDER BY PRICE AND THEN BY NAME:", r4);
 
             // var r5 = r4.Skip(2).Take(4);
@@ -89,6 +89,30 @@ namespace LinqProductSql
                     Console.WriteLine(p);
                 }
             }
+
+            // var r10 = products.Max(p => p.Price);
+            var r10 = (from p in products select p.Price).Max();
+            Console.WriteLine("MAX PRICE: " + r10);
+            // var r11 = products.Min(p => p.Price);
+            var r11 = (from p in products select p.Price).Min();
+            Console.WriteLine("MIN PRICE: " + r11);
+
+            // var r12 = products.Where(p => p.Category.Id == 1).Sum(p => p.Price);
+            var r12 = (from p in products where p.Category.Id == 1 select p.Price).Sum();
+            Console.WriteLine("CATEGORY 1 SUM PRICE: " + r12);
+            
+            // var r13 = products.Where(p => p.Category.Id == 1).Average(p => p.Price);
+            var r13 = (from p in products where p.Category.Id == 1 select p.Price).Average();
+            Console.WriteLine("CATEGORY 1 AVG PRICE: " + r13);
+
+            // var r14 = products.Where(p => p.Category.Id == 0).Select(p => p.Price).DefaultIfEmpty(0.0).Average();
+            var r14 = (from p in products where p.Category.Id == 0 select p.Price).DefaultIfEmpty(0.0).Average();
+            Console.WriteLine("CATEGORY 0 (NULL) AVG PRICE: " + r14);
+
+            // //Map & Reduce => Select & Agregate
+            // var r15 = products.Where(p => p.Category.Id == 2).Select(p => p.Price).Aggregate(0.0, (x, y) => x + y);
+            var r15 = (from p in products where p.Category.Id == 2 select p.Price).Aggregate(0.0, (x, y) => x + y);
+            Console.WriteLine("CATEGORY 2 AGREGATE SUM: " + r15);
         }
     }
 }

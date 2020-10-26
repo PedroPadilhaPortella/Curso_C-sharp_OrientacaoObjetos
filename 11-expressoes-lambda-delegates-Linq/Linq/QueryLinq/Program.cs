@@ -9,7 +9,7 @@ namespace QueryLinq
         static void Main(string[] args)
         {
             //Specify the data source
-            int[] number = new int[] {1, 2, 3, 4, 5, 6};
+            int[] number = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
             foreach(int i in number){
                 Console.Write($"{i}  ");
@@ -21,10 +21,10 @@ namespace QueryLinq
             IEnumerable<int> result = number.Where(x => x % 2 == 0).Select(x => x * 10);
             // List<int> result = number.Where(x => x % 2 == 0).Select(x => x * 10).ToList();
 
-            Console.WriteLine("\nValores pares multiplicados por 10:");
+            Console.Write("\nValores pares multiplicados por 10:");
             //execute que query
             foreach (int x in result){
-                Console.Write($"{x}  ");
+                Console.Write($"  {x}");
             }
         }
     }
