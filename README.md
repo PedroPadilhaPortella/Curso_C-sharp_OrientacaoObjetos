@@ -1,4 +1,4 @@
-# Curso_C-sharp_OrientacaoObjetos
+# Curso C# COMPLETO 2020 Programação Orientada a Objetos + Projetos
 <img src="https://github.com/PedroPadilhaPortella/Curso_C-sharp_OrientacaoObjetos/blob/master/.github/logo.png">
 <p>curso de linguagem c# e plataforma .NET, desenvolvido durante o curso C# COMPLETO 2020 Programação Orientada a Objetos + Projetos.</p>
 
