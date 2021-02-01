@@ -1,0 +1,10 @@
+using System.Collections.Generic;
+
+namespace SalesWeb.Models.ViewModels
+{
+    public class SellerForm
+    {
+        public Seller Seller { get; set; }
+        public ICollection<Department> Departments { get; set; }
+    }
+}
