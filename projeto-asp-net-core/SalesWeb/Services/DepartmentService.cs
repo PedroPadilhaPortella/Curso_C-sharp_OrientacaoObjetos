@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SalesWeb.Data;
 using SalesWeb.Models;
 
@@ -12,9 +14,9 @@ namespace SalesWeb.Services
             Database = database;
         }
 
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return Database.Department.OrderBy(d => d.Name).ToList();
+            return await Database.Department.OrderBy(d => d.Name).ToListAsync();
         }
     }
 }

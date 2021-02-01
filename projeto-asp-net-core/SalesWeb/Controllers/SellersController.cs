@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SalesWeb.Data;
 using SalesWeb.Models;
@@ -20,39 +21,41 @@ namespace SalesWeb.Controllers
         }
 
 
-        public IActionResult Index() {
-            var sellers = SellerService.FindAll();
+        public async Task<IActionResult> Index()
+        {
+            var sellers = await SellerService.FindAllAsync();
             return View(sellers);
         }
 
         [HttpGet]
-        public IActionResult Create() {
-            var departments = DepartmentService.FindAll();
+        public async Task<IActionResult> Create()
+        {
+            var departments = await DepartmentService.FindAllAsync();
             var sellerForm = new SellerForm() { Departments = departments };
             return View(sellerForm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
             if(!ModelState.IsValid) {
-                var departments = DepartmentService.FindAll();
+                var departments = await DepartmentService.FindAllAsync();
                 var sellerForm = new SellerForm() { Seller = seller, Departments = departments };
                 return View(sellerForm);
             }
 
-            SellerService.Insert(seller);
+            await SellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id) 
+        public async Task<IActionResult> Delete(int? id) 
         {
             if(id == null)
                 return RedirectToAction(nameof(Error), new { message = "Id not provided"});
 
-            var seller = SellerService.FindById(id.Value);
+            var seller = await SellerService.FindByIdAsync(id.Value);
 
             if(seller == null)
                 return RedirectToAction(nameof(Error), new { message = "Id not found"});
@@ -62,19 +65,19 @@ namespace SalesWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id) 
+        public async Task<IActionResult> Delete(int id) 
         {
-            SellerService.Remove(id);
+            await SellerService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if(id == null)
                 return RedirectToAction(nameof(Error), new { message = "Id not provided"});
 
-            var seller = SellerService.FindById(id.Value);
+            var seller = await SellerService.FindByIdAsync(id.Value);
 
             if(seller == null)
                 return RedirectToAction(nameof(Error), new { message = "Id not found"});
@@ -83,17 +86,17 @@ namespace SalesWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id) 
+        public async Task<IActionResult> Edit(int? id) 
         {
             if(id == null)
                 return RedirectToAction(nameof(Error), new { message = "Id not provided"});
 
-            var seller = SellerService.FindById(id.Value);
+            var seller = await SellerService.FindByIdAsync(id.Value);
 
             if(seller == null)
                 return RedirectToAction(nameof(Error), new { message = "Id not found"});
 
-            List<Department> departments = DepartmentService.FindAll();
+            List<Department> departments = await DepartmentService.FindAllAsync();
             SellerForm sellerForm = new SellerForm() {Seller = seller, Departments = departments };
 
             return View(sellerForm);
@@ -102,10 +105,10 @@ namespace SalesWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
             if(!ModelState.IsValid) {
-                var departments = DepartmentService.FindAll();
+                var departments = await DepartmentService.FindAllAsync();
                 var sellerForm = new SellerForm() { Seller = seller, Departments = departments };
                 return View(sellerForm);
             }
@@ -114,7 +117,7 @@ namespace SalesWeb.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch"});
 
             try {
-                SellerService.Update(seller);
+                await SellerService.UpdateAsync(seller);
                 return RedirectToAction(nameof(Index));
             }
             catch(ApplicationException e) {
