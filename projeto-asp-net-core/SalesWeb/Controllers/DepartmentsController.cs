@@ -8,6 +8,7 @@ using SalesWeb.Data;
 using SalesWeb.Models;
 using SalesWeb.Models.ViewModels;
 using SalesWeb.Services;
+using SalesWeb.Services.Exceptions;
 
 namespace SalesWebMvc.Controllers
 {
@@ -67,8 +68,13 @@ namespace SalesWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await DepartmentService.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try {
+                await DepartmentService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch(IntegrityException e) {
+                return RedirectToAction(nameof(Error), new { message = e.Message});
+            }
         }
 
 

@@ -11,7 +11,8 @@ namespace SalesWeb.Services
     public class SellerService
     {
         private readonly SalesWebContext Database;
-        public SellerService(SalesWebContext database) {
+        public SellerService(SalesWebContext database)
+        {
             Database = database;
         }
 
@@ -34,23 +35,32 @@ namespace SalesWeb.Services
 
         public async Task RemoveAsync(int id)
         {
-            var seller = await Database.Seller.FindAsync(id);
-            Database.Seller.Remove(seller);
-            await Database.SaveChangesAsync();
+            try
+            {
+                var seller = await Database.Seller.FindAsync(id);
+                Database.Seller.Remove(seller);
+                await Database.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("It's not possible delete a Seller who has Sales Records related");
+            }
         }
 
-        public async Task UpdateAsync(Seller seller) 
+        public async Task UpdateAsync(Seller seller)
         {
             bool hasAny = await Database.Seller.AnyAsync(x => x.Id == seller.Id);
-            
-            if(!hasAny)
+
+            if (!hasAny)
                 throw new NotFoundException("Id not found");
-        
-            try {
+
+            try
+            {
                 Database.Update(seller);
                 await Database.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException e) {
+            catch (DbUpdateConcurrencyException e)
+            {
                 throw new DbConcurrencyException(e.Message);
             }
         }

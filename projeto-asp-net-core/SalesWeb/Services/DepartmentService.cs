@@ -11,7 +11,8 @@ namespace SalesWeb.Services
     public class DepartmentService
     {
         private readonly SalesWebContext Database;
-        public DepartmentService(SalesWebContext database) {
+        public DepartmentService(SalesWebContext database)
+        {
             Database = database;
         }
 
@@ -34,23 +35,32 @@ namespace SalesWeb.Services
 
         public async Task RemoveAsync(int id)
         {
-            var department = await Database.Department.FindAsync(id);
-            Database.Department.Remove(department);
-            await Database.SaveChangesAsync();
+            try
+            {
+                var department = await Database.Department.FindAsync(id);
+                Database.Department.Remove(department);
+                await Database.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("It's not possible delete a Department who has Sellers related");
+            }
         }
 
-        public async Task UpdateAsync(Department department) 
+        public async Task UpdateAsync(Department department)
         {
             bool hasAny = await Database.Department.AnyAsync(x => x.Id == department.Id);
-            
-            if(!hasAny)
+
+            if (!hasAny)
                 throw new NotFoundException("Id not found");
-        
-            try {
+
+            try
+            {
                 Database.Update(department);
                 await Database.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException e) {
+            catch (DbUpdateConcurrencyException e)
+            {
                 throw new DbConcurrencyException(e.Message);
             }
         }
