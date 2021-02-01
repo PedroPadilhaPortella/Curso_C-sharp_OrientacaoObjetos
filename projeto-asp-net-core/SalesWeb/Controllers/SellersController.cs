@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SalesWeb.Data;
 using SalesWeb.Models;
 using SalesWeb.Models.ViewModels;
 using SalesWeb.Services;
-using SalesWeb.Services.Exceptions;
 
 namespace SalesWeb.Controllers
 {

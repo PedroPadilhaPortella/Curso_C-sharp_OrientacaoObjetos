@@ -49,7 +49,7 @@ namespace SalesWeb.Services
             try {
                 Database.Update(seller);
                 await Database.SaveChangesAsync();
-            } 
+            }
             catch (DbUpdateConcurrencyException e) {
                 throw new DbConcurrencyException(e.Message);
             }
