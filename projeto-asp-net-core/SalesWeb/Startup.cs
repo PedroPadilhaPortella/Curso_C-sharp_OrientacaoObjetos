@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SalesWeb.Data;
+using SalesWeb.Services;
 
 namespace SalesWeb
 {
@@ -25,6 +26,7 @@ namespace SalesWeb
             services.AddControllersWithViews();
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedingService seedingService)
