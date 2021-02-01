@@ -22,5 +22,17 @@ namespace SalesWeb.Services
             Database.Seller.Add(seller);
             Database.SaveChanges();
         }
+
+        public Seller FindById(int id)
+        {
+            return Database.Seller.FirstOrDefault(s => s.Id.Equals(id));
+        }
+
+        public void Remove(int id) 
+        {
+            var seller = Database.Seller.Find(id);
+            Database.Seller.Remove(seller);
+            Database.SaveChanges();
+        }
     }
 }
